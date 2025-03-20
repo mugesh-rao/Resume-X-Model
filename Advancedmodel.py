@@ -36,7 +36,6 @@ def extract_text_from_pdf(pdf_path):
         doc = fitz.open(pdf_path)
         text = "".join(page.get_text() for page in doc)
         doc.close()
-        print(f"Extracted text from {pdf_path}: {text[:100]}...")  # Debug: Show first 100 chars
         return text if text else "No text extracted"
     except Exception as e:
         print(f"Error reading {pdf_path}: {e}")
@@ -49,7 +48,7 @@ def preprocess_text(text, stop_words=set(stopwords.words('english'))):
     text = re.sub(r'[^\w\s]', '', text)
     tokens = [word for word in word_tokenize(text) if word not in stop_words]
     processed = ' '.join(tokens) if tokens else text
-    print(f"Preprocessed text sample: {processed[:100]}...")  # Debug
+    # print(f"Preprocessed text sample: {processed[:100]}...")  
     return processed
 
 # Feature extraction
@@ -65,7 +64,7 @@ def extract_features(text):
         "experience": int(experience.group(1)) if experience else 0,
         "skills": skills
     }
-    print(f"Extracted features: CGPA={features['cgpa']}, Skills={features['skills']}")  # Debug
+    # print(f"Extracted features: CGPA={features['cgpa']}, Skills={features['skills']}")  
     return features
 
 # Compute weighted score with relaxed defaults
@@ -137,16 +136,16 @@ if __name__ == "__main__":
 
     # Create DataFrame and filter
     df = pd.DataFrame(results)
-    filtered_df = df[df["Match Score (%)"] >= 50].sort_values("Match Score (%)", ascending=False)  # Lowered to 50%
+    filtered_df = df[df["Match Score (%)"] >= 20].sort_values("Match Score (%)", ascending=False)  # Lowered to 50%
 
     # Save to SQLite
     conn = sqlite3.connect("resume_matches.db")
     df.to_sql("candidates", conn, if_exists="replace", index=False)
     conn.close()
 
-    # Display results
-    print("Job Skills identified:", sorted(job_skills))
-    print("\nFull Results:")
+
+    # print("Job Skills identified:", sorted(job_skills))
+
     print(df)
     print("\nFiltered Candidates (Score >= 50%):")
     if filtered_df.empty:
