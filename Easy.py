@@ -20,9 +20,10 @@ nltk.download('words')
 
 # Predefined list of skills (expand this based on your domain)
 SKILLS_LIST = [
-    "python", "java", "javascript", "sql", "machine learning", "data analysis",
-    "aws", "cloud", "docker", "git", "excel", "tableau", "react", "node.js",
-    "communication", "project management", "linux", "tensorflow", "pandas"
+    "data analysis", "data visualization", "data mining", "data cleaning", "data wrangling",
+    "python", "r", "sql", "excel", "tableau", "power bi", "machine learning", 
+    "statistical analysis", "predictive modeling", "big data", "aws", "cloud computing",
+    "docker", "git", "communication", "project management", "linux"
 ]
 
 # Function to extract text from PDF
