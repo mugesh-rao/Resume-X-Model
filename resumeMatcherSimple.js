@@ -153,8 +153,6 @@ async function matchResumes(jobDescPath, resumePaths) {
                     "Resume": resumePath.split("/").pop(),
                     "Match Score (%)": score.toFixed(2),
                     "Semantic Similarity (%)": (similarity * 100).toFixed(2),
-                    "Skill Matches": skillMatches,
-                    "Matched Skills": Array.from(resumeSkills).join(", ") || "None",
                     "Experience (Years)": experienceYears,
                     "CGPA": cgpa || "Not found",
                     "Email": email
