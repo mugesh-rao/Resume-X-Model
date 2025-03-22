@@ -1,6 +1,6 @@
 const fs = require('fs');
 const pdf = require('pdf-parse');
-const { pipeline } = require('@xenova/sentence-transformers');
+const { pipeline } = require('@xenova/transformers');
 
 // Load SBERT model
 let model;
@@ -18,10 +18,15 @@ async function extractTextFromPdf(pdfPath) {
 
 // Compute cosine similarity
 function cosineSimilarity(vecA, vecB) {
-    const dotProduct = vecA.reduce((sum, val, i) => sum + val * vecB[i], 0);
-    const magnitudeA = Math.sqrt(vecA.reduce((sum, val) => sum + val ** 2, 0));
-    const magnitudeB = Math.sqrt(vecB.reduce((sum, val) => sum + val ** 2, 0));
-    return dotProduct / (magnitudeA * magnitudeB);
+    let dotProduct = 0, magnitudeA = 0, magnitudeB = 0;
+    
+    for (let i = 0; i < vecA.length; i++) {
+        dotProduct += vecA[i] * vecB[i];
+        magnitudeA += vecA[i] ** 2;
+        magnitudeB += vecB[i] ** 2;
+    }
+    
+    return dotProduct / (Math.sqrt(magnitudeA) * Math.sqrt(magnitudeB));
 }
 
 // Match resume with job description
@@ -31,17 +36,21 @@ async function matchResume(jobDescPath, resumePath) {
 
         // Extract and encode job description
         const jobText = await extractTextFromPdf(jobDescPath);
-        const jobEmbedding = await model(jobText, { pooling: 'mean', normalize: true });
+        const jobEmbeddingObj = await model(jobText, { pooling: 'mean', normalize: true });
 
         // Extract and encode resume
         const resumeText = await extractTextFromPdf(resumePath);
-        const resumeEmbedding = await model(resumeText, { pooling: 'mean', normalize: true });
+        const resumeEmbeddingObj = await model(resumeText, { pooling: 'mean', normalize: true });
+
+        // Extract correct embeddings from returned objects
+        const jobEmbedding = jobEmbeddingObj.data;
+        const resumeEmbedding = resumeEmbeddingObj.data;
 
         // Compute similarity score
         const similarity = cosineSimilarity(jobEmbedding, resumeEmbedding) * 100;
 
         // Output the match score
-        console.log(`Match Score for Resume (${resumePath}): ${similarity.toFixed(2)}%`);
+        console.log(`Match Score for Resume (${resumePath.split('/').pop()}): ${similarity.toFixed(2)}%`);
         return similarity.toFixed(2);
     } catch (error) {
         console.error("Error:", error);
@@ -50,6 +59,6 @@ async function matchResume(jobDescPath, resumePath) {
 
 // Example Usage
 const jobDescPath = "./job_description.pdf";
-const resumePath = "C:/Users/ASUS/Downloads/Mugesh Rao CV.pdf"; // Single resume
+const resumePath = "C:/Users/ASUS/Downloads/Resume Template.pdf"; // Single resume
 
 matchResume(jobDescPath, resumePath);
