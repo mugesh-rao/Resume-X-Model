@@ -150,10 +150,9 @@ async function matchResumes(jobDescPath, resumePaths) {
                 const score = computeScore(similarity, skillMatchRatio, cgpa, experienceYears);
 
                 return {
-                    "Resume": resumePath.split("/").pop(),
+                    "Resume": resumePath.split("/").pop().slice(0, 5),
                     "Match Score (%)": score.toFixed(2),
                     "Semantic Similarity (%)": (similarity * 100).toFixed(2),
-                    "Experience (Years)": experienceYears,
                     "CGPA": cgpa || "Not found",
                     "Email": email
                 };

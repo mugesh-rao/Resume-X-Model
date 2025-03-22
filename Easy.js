@@ -159,9 +159,9 @@ async function matchResumes(jobDescPath, resumePaths) {
 // Example usage
 const jobDescPath = "./job_description.pdf";
 const resumePaths = [
-    "./resumes/resume1.pdf",
-    "./resumes/resume2.pdf",
-    "./resumes/resume3.pdf"
+    "C:/Users/ASUS/Downloads/Mugesh Rao CV.pdf",
+        "C:/Users/ASUS/Desktop/Resume - Elliot.pdf",
+        "C:/Users/ASUS/Downloads/Resume Template.pdf"
 ];
 
 matchResumes(jobDescPath, resumePaths);

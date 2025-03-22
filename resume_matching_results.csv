@@ -1,4 +1,4 @@
-Resume,Match Score (%),Semantic Similarity (%),Experience (Years),CGPA,Email
-Mugesh Rao CV.pdf,51.08,69.74,0,7.8,mugeshraotech@gmail.com
-Resume Template.pdf,39.71,56.82,0,3.73,narinkongmajai@gmail.com
-Resume - Elliot.pdf,36.42,65.95,0,Not found,elliothu.my@gmail.com
+Resume,Match Score (%),TF-IDF Similarity (%),Skill Matches,Matched Skills,Total Job Skills,CGPA,Email
+Mugesh Rao CV.pdf,296.89,675.55,4,python, r, sql, aws, docker, git,12,7.8,mugeshraotech@gmail.com
+Resume - Elliot.pdf,101.72,220.98,2,r, sql, docker, git, linux,12,Not found,elliothu.my@gmail.com
+Resume Template.pdf,56.58,97.30,2,r, communication,12,3.73,narinkongmajai@gmail.com
