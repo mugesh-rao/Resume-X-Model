@@ -59,6 +59,6 @@ async function matchResume(jobDescPath, resumePath) {
 
 // Example Usage
 const jobDescPath = "./job_description.pdf";
-const resumePath = "C:/Users/ASUS/Downloads/Resume Template.pdf"; // Single resume
+const resumePath = "C:/Users/ASUS/Downloads/Resume Template.pdf"; 
 
 matchResume(jobDescPath, resumePath);
